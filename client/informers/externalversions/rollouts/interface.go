@@ -19,8 +19,8 @@ limitations under the License.
 package rollouts
 
 import (
-	internalinterfaces "github.com/openkruise/kruise-api/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/openkruise/kruise-api/client/informers/externalversions/rollouts/v1alpha1"
+	internalinterfaces "github.com/tiancheng92/kruise-api/client/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/tiancheng92/kruise-api/client/informers/externalversions/rollouts/v1alpha1"
 )
 
 // Interface provides access to each of this group's versions.

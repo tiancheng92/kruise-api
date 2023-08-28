@@ -19,7 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	internalinterfaces "github.com/openkruise/kruise-api/client/informers/externalversions/internalinterfaces"
+	internalinterfaces "github.com/tiancheng92/kruise-api/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to all the informers in this group version.
@@ -30,6 +30,7 @@ type Interface interface {
 	Rollouts() RolloutInformer
 	// RolloutHistories returns a RolloutHistoryInformer.
 	RolloutHistories() RolloutHistoryInformer
+	TrafficRoutings() TrafficRoutingInformer
 }
 
 type version struct {
@@ -56,4 +57,8 @@ func (v *version) Rollouts() RolloutInformer {
 // RolloutHistories returns a RolloutHistoryInformer.
 func (v *version) RolloutHistories() RolloutHistoryInformer {
 	return &rolloutHistoryInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+func (v *version) TrafficRoutings() TrafficRoutingInformer {
+	return &trafficRoutingInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

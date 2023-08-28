@@ -15,12 +15,12 @@ limitations under the License.
 */
 
 // Package v1alpha1 contains API Schema definitions for the apps v1alpha1 API group
-//+kubebuilder:object:generate=true
-//+groupName=rollouts.kruise.io
+// +kubebuilder:object:generate=true
+// +groupName=rollouts.kruise.io
 package v1alpha1
 
 import (
-	"github.com/openkruise/kruise-api/utils/scheme"
+	"github.com/tiancheng92/kruise-api/utils/scheme"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 

@@ -17,7 +17,7 @@ limitations under the License.
 package apis
 
 import (
-	"github.com/openkruise/kruise-api/apps/v1alpha1"
+	"github.com/tiancheng92/kruise-api/apps/v1alpha1"
 )
 
 func init() {

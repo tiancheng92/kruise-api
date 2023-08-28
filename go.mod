@@ -1,4 +1,4 @@
-module github.com/openkruise/kruise-api
+module github.com/tiancheng92/kruise-api
 
 go 1.18
 

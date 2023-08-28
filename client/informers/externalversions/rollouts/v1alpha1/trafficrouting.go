@@ -22,68 +22,69 @@ import (
 	"context"
 	time "time"
 
-	appsv1alpha1 "github.com/tiancheng92/kruise-api/apps/v1alpha1"
 	versioned "github.com/tiancheng92/kruise-api/client/clientset/versioned"
 	internalinterfaces "github.com/tiancheng92/kruise-api/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/tiancheng92/kruise-api/client/listers/apps/v1alpha1"
+	v1alpha1 "github.com/tiancheng92/kruise-api/client/listers/rollouts/v1alpha1"
+	trafficRoutingsv1alpha1 "github.com/tiancheng92/kruise-api/rollouts/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// NodePodProbeInformer provides access to a shared informer and lister for
-// NodePodProbes.
-type NodePodProbeInformer interface {
+// TrafficRoutingInformer provides access to a shared informer and lister for
+// TrafficRoutings.
+type TrafficRoutingInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.NodePodProbeLister
+	Lister() v1alpha1.TrafficRoutingLister
 }
 
-type nodePodProbeInformer struct {
+type trafficRoutingInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	namespace        string
 }
 
-// NewNodePodProbeInformer constructs a new informer for NodePodProbe type.
+// NewTrafficRoutingInformer constructs a new informer for TrafficRouting type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewNodePodProbeInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredNodePodProbeInformer(client, resyncPeriod, indexers, nil)
+func NewTrafficRoutingInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredTrafficRoutingInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredNodePodProbeInformer constructs a new informer for NodePodProbe type.
+// NewFilteredTrafficRoutingInformer constructs a new informer for TrafficRouting type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredNodePodProbeInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredTrafficRoutingInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.AppsV1alpha1().NodePodProbes().List(context.TODO(), options)
+				return client.RolloutsV1alpha1().TrafficRoutings(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.AppsV1alpha1().NodePodProbes().Watch(context.TODO(), options)
+				return client.RolloutsV1alpha1().TrafficRoutings(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&appsv1alpha1.NodePodProbe{},
+		&trafficRoutingsv1alpha1.RolloutTrafficRouting{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *nodePodProbeInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredNodePodProbeInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *trafficRoutingInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredTrafficRoutingInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *nodePodProbeInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&appsv1alpha1.NodePodProbe{}, f.defaultInformer)
+func (f *trafficRoutingInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&trafficRoutingsv1alpha1.RolloutTrafficRouting{}, f.defaultInformer)
 }
 
-func (f *nodePodProbeInformer) Lister() v1alpha1.NodePodProbeLister {
-	return v1alpha1.NewNodePodProbeLister(f.Informer().GetIndexer())
+func (f *trafficRoutingInformer) Lister() v1alpha1.TrafficRoutingLister {
+	return v1alpha1.NewTrafficRoutingLister(f.Informer().GetIndexer())
 }

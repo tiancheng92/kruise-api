@@ -23,3 +23,5 @@ type BatchReleaseExpansion interface{}
 type RolloutExpansion interface{}
 
 type RolloutHistoryExpansion interface{}
+
+type TrafficRoutingExpansion interface{}

@@ -38,6 +38,10 @@ type RolloutNamespaceListerExpansion interface{}
 // RolloutHistoryLister.
 type RolloutHistoryListerExpansion interface{}
 
+type TrafficRoutingListerExpansion interface{}
+
+type TrafficRoutingNamespaceListerExpansion interface{}
+
 // RolloutHistoryNamespaceListerExpansion allows custom methods to be added to
 // RolloutHistoryNamespaceLister.
 type RolloutHistoryNamespaceListerExpansion interface{}

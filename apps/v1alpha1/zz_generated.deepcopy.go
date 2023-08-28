@@ -22,7 +22,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"github.com/openkruise/kruise-api/apps/pub"
+	"github.com/tiancheng92/kruise-api/apps/pub"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"

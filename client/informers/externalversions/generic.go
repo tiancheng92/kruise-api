@@ -21,10 +21,10 @@ package externalversions
 import (
 	"fmt"
 
-	v1alpha1 "github.com/openkruise/kruise-api/apps/v1alpha1"
-	v1beta1 "github.com/openkruise/kruise-api/apps/v1beta1"
-	policyv1alpha1 "github.com/openkruise/kruise-api/policy/v1alpha1"
-	rolloutsv1alpha1 "github.com/openkruise/kruise-api/rollouts/v1alpha1"
+	v1alpha1 "github.com/tiancheng92/kruise-api/apps/v1alpha1"
+	v1beta1 "github.com/tiancheng92/kruise-api/apps/v1beta1"
+	policyv1alpha1 "github.com/tiancheng92/kruise-api/policy/v1alpha1"
+	rolloutsv1alpha1 "github.com/tiancheng92/kruise-api/rollouts/v1alpha1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -104,6 +104,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Rollouts().V1alpha1().Rollouts().Informer()}, nil
 	case rolloutsv1alpha1.SchemeGroupVersion.WithResource("rollouthistories"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Rollouts().V1alpha1().RolloutHistories().Informer()}, nil
+	case rolloutsv1alpha1.SchemeGroupVersion.WithResource("trafficroutings"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Rollouts().V1alpha1().TrafficRoutings().Informer()}, nil
 
 	}
 

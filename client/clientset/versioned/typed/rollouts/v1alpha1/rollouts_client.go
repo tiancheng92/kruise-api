@@ -19,8 +19,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"github.com/openkruise/kruise-api/client/clientset/versioned/scheme"
-	v1alpha1 "github.com/openkruise/kruise-api/rollouts/v1alpha1"
+	"github.com/tiancheng92/kruise-api/client/clientset/versioned/scheme"
+	v1alpha1 "github.com/tiancheng92/kruise-api/rollouts/v1alpha1"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -29,6 +29,7 @@ type RolloutsV1alpha1Interface interface {
 	BatchReleasesGetter
 	RolloutsGetter
 	RolloutHistoriesGetter
+	TrafficRoutingsGetter
 }
 
 // RolloutsV1alpha1Client is used to interact with features provided by the rollouts.kruise.io group.
@@ -46,6 +47,10 @@ func (c *RolloutsV1alpha1Client) Rollouts(namespace string) RolloutInterface {
 
 func (c *RolloutsV1alpha1Client) RolloutHistories(namespace string) RolloutHistoryInterface {
 	return newRolloutHistories(c, namespace)
+}
+
+func (c *RolloutsV1alpha1Client) TrafficRoutings(namespace string) TrafficRoutingInterface {
+	return newTrafficRoutings(c, namespace)
 }
 
 // NewForConfig creates a new RolloutsV1alpha1Client for the given config.
