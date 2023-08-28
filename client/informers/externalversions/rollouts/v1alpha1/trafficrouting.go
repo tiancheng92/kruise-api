@@ -71,7 +71,7 @@ func NewFilteredTrafficRoutingInformer(client versioned.Interface, namespace str
 				return client.RolloutsV1alpha1().TrafficRoutings(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&trafficRoutingsv1alpha1.RolloutTrafficRouting{},
+		&trafficRoutingsv1alpha1.TrafficRouting{},
 		resyncPeriod,
 		indexers,
 	)
@@ -82,7 +82,7 @@ func (f *trafficRoutingInformer) defaultInformer(client versioned.Interface, res
 }
 
 func (f *trafficRoutingInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&trafficRoutingsv1alpha1.RolloutTrafficRouting{}, f.defaultInformer)
+	return f.factory.InformerFor(&trafficRoutingsv1alpha1.TrafficRouting{}, f.defaultInformer)
 }
 
 func (f *trafficRoutingInformer) Lister() v1alpha1.TrafficRoutingLister {

@@ -38,6 +38,24 @@ type TrafficRoutingRef struct {
 	Gateway *GatewayTrafficRouting `json:"gateway,omitempty"`
 }
 
+// IngressTrafficRouting configuration for ingress controller to control traffic routing
+type IngressTrafficRouting struct {
+	// ClassType refers to the type of `Ingress`.
+	// current support nginx, aliyun-alb. default is nginx.
+	// +optional
+	ClassType string `json:"classType,omitempty"`
+	// Name refers to the name of an `Ingress` resource in the same namespace as the `Rollout`
+	Name string `json:"name"`
+}
+
+// GatewayTrafficRouting configuration for gateway api
+type GatewayTrafficRouting struct {
+	// HTTPRouteName refers to the name of an `HTTPRoute` resource in the same namespace as the `Rollout`
+	HTTPRouteName *string `json:"httpRouteName,omitempty"`
+	// TCPRouteName *string `json:"tcpRouteName,omitempty"`
+	// UDPRouteName *string `json:"udpRouteName,omitempty"`
+}
+
 type TrafficRoutingSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
@@ -114,7 +132,7 @@ const (
 // +kubebuilder:printcolumn:name="AGE",type=date,JSONPath=".metadata.creationTimestamp"
 
 // TrafficRouting is the Schema for the TrafficRoutings API
-type RolloutTrafficRouting struct {
+type TrafficRouting struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
@@ -125,12 +143,12 @@ type RolloutTrafficRouting struct {
 //+kubebuilder:object:root=true
 
 // TrafficRoutingList contains a list of TrafficRouting
-type RolloutTrafficRoutingList struct {
+type TrafficRoutingList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []RolloutTrafficRouting `json:"items"`
+	Items           []TrafficRouting `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&RolloutTrafficRouting{}, &RolloutTrafficRoutingList{})
+	SchemeBuilder.Register(&TrafficRouting{}, &TrafficRoutingList{})
 }

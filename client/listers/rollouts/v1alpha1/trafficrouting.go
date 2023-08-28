@@ -25,12 +25,12 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// TrafficRoutingLister helps list TrafficRoutings.
+// TrafficRoutinger helps list TrafficRoutings.
 // All objects returned here must be treated as read-only.
 type TrafficRoutingLister interface {
 	// List lists all TrafficRoutings in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.RolloutTrafficRouting, err error)
+	List(selector labels.Selector) (ret []*v1alpha1.TrafficRouting, err error)
 	// TrafficRoutings returns an object that can list and get TrafficRoutings.
 	TrafficRoutings(namespace string) TrafficRoutingNamespaceLister
 	TrafficRoutingListerExpansion
@@ -47,9 +47,9 @@ func NewTrafficRoutingLister(indexer cache.Indexer) TrafficRoutingLister {
 }
 
 // List lists all TrafficRoutings in the indexer.
-func (s *trafficRoutingLister) List(selector labels.Selector) (ret []*v1alpha1.RolloutTrafficRouting, err error) {
+func (s *trafficRoutingLister) List(selector labels.Selector) (ret []*v1alpha1.TrafficRouting, err error) {
 	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.RolloutTrafficRouting))
+		ret = append(ret, m.(*v1alpha1.TrafficRouting))
 	})
 	return ret, err
 }
@@ -64,10 +64,10 @@ func (s *trafficRoutingLister) TrafficRoutings(namespace string) TrafficRoutingN
 type TrafficRoutingNamespaceLister interface {
 	// List lists all TrafficRoutings in the indexer for a given namespace.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.RolloutTrafficRouting, err error)
+	List(selector labels.Selector) (ret []*v1alpha1.TrafficRouting, err error)
 	// Get retrieves the TrafficRouting from the indexer for a given namespace and name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1alpha1.RolloutTrafficRouting, error)
+	Get(name string) (*v1alpha1.TrafficRouting, error)
 	TrafficRoutingNamespaceListerExpansion
 }
 
@@ -79,15 +79,15 @@ type trafficRoutingNamespaceLister struct {
 }
 
 // List lists all TrafficRoutings in the indexer for a given namespace.
-func (s trafficRoutingNamespaceLister) List(selector labels.Selector) (ret []*v1alpha1.RolloutTrafficRouting, err error) {
+func (s trafficRoutingNamespaceLister) List(selector labels.Selector) (ret []*v1alpha1.TrafficRouting, err error) {
 	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.RolloutTrafficRouting))
+		ret = append(ret, m.(*v1alpha1.TrafficRouting))
 	})
 	return ret, err
 }
 
 // Get retrieves the TrafficRouting from the indexer for a given namespace and name.
-func (s trafficRoutingNamespaceLister) Get(name string) (*v1alpha1.RolloutTrafficRouting, error) {
+func (s trafficRoutingNamespaceLister) Get(name string) (*v1alpha1.TrafficRouting, error) {
 	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
 	if err != nil {
 		return nil, err
@@ -95,5 +95,5 @@ func (s trafficRoutingNamespaceLister) Get(name string) (*v1alpha1.RolloutTraffi
 	if !exists {
 		return nil, errors.NewNotFound(v1alpha1.Resource("trafficRouting"), name)
 	}
-	return obj.(*v1alpha1.RolloutTrafficRouting), nil
+	return obj.(*v1alpha1.TrafficRouting), nil
 }

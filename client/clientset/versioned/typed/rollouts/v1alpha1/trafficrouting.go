@@ -38,15 +38,15 @@ type TrafficRoutingsGetter interface {
 
 // TrafficRoutingInterface has methods to work with TrafficRouting resources.
 type TrafficRoutingInterface interface {
-	Create(ctx context.Context, trafficRouting *v1alpha1.RolloutTrafficRouting, opts v1.CreateOptions) (*v1alpha1.RolloutTrafficRouting, error)
-	Update(ctx context.Context, trafficRouting *v1alpha1.RolloutTrafficRouting, opts v1.UpdateOptions) (*v1alpha1.RolloutTrafficRouting, error)
-	UpdateStatus(ctx context.Context, trafficRouting *v1alpha1.RolloutTrafficRouting, opts v1.UpdateOptions) (*v1alpha1.RolloutTrafficRouting, error)
+	Create(ctx context.Context, trafficRouting *v1alpha1.TrafficRouting, opts v1.CreateOptions) (*v1alpha1.TrafficRouting, error)
+	Update(ctx context.Context, trafficRouting *v1alpha1.TrafficRouting, opts v1.UpdateOptions) (*v1alpha1.TrafficRouting, error)
+	UpdateStatus(ctx context.Context, trafficRouting *v1alpha1.TrafficRouting, opts v1.UpdateOptions) (*v1alpha1.TrafficRouting, error)
 	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.RolloutTrafficRouting, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.RolloutTrafficRoutingList, error)
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.TrafficRouting, error)
+	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.TrafficRoutingList, error)
 	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.RolloutTrafficRouting, err error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.TrafficRouting, err error)
 	TrafficRoutingExpansion
 }
 
@@ -65,8 +65,8 @@ func newTrafficRoutings(c *RolloutsV1alpha1Client, namespace string) *trafficRou
 }
 
 // Get takes name of the trafficRouting, and returns the corresponding trafficRouting object, and an error if there is any.
-func (c *trafficRoutings) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.RolloutTrafficRouting, err error) {
-	result = &v1alpha1.RolloutTrafficRouting{}
+func (c *trafficRoutings) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.TrafficRouting, err error) {
+	result = &v1alpha1.TrafficRouting{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("trafficroutings").
@@ -78,12 +78,12 @@ func (c *trafficRoutings) Get(ctx context.Context, name string, options v1.GetOp
 }
 
 // List takes label and field selectors, and returns the list of TrafficRoutings that match those selectors.
-func (c *trafficRoutings) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.RolloutTrafficRoutingList, err error) {
+func (c *trafficRoutings) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.TrafficRoutingList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
 	}
-	result = &v1alpha1.RolloutTrafficRoutingList{}
+	result = &v1alpha1.TrafficRoutingList{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("trafficroutings").
@@ -110,8 +110,8 @@ func (c *trafficRoutings) Watch(ctx context.Context, opts v1.ListOptions) (watch
 }
 
 // Create takes the representation of a trafficRouting and creates it.  Returns the server's representation of the trafficRouting, and an error, if there is any.
-func (c *trafficRoutings) Create(ctx context.Context, trafficRouting *v1alpha1.RolloutTrafficRouting, opts v1.CreateOptions) (result *v1alpha1.RolloutTrafficRouting, err error) {
-	result = &v1alpha1.RolloutTrafficRouting{}
+func (c *trafficRoutings) Create(ctx context.Context, trafficRouting *v1alpha1.TrafficRouting, opts v1.CreateOptions) (result *v1alpha1.TrafficRouting, err error) {
+	result = &v1alpha1.TrafficRouting{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("trafficroutings").
@@ -123,8 +123,8 @@ func (c *trafficRoutings) Create(ctx context.Context, trafficRouting *v1alpha1.R
 }
 
 // Update takes the representation of a trafficRouting and updates it. Returns the server's representation of the trafficRouting, and an error, if there is any.
-func (c *trafficRoutings) Update(ctx context.Context, trafficRouting *v1alpha1.RolloutTrafficRouting, opts v1.UpdateOptions) (result *v1alpha1.RolloutTrafficRouting, err error) {
-	result = &v1alpha1.RolloutTrafficRouting{}
+func (c *trafficRoutings) Update(ctx context.Context, trafficRouting *v1alpha1.TrafficRouting, opts v1.UpdateOptions) (result *v1alpha1.TrafficRouting, err error) {
+	result = &v1alpha1.TrafficRouting{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("trafficroutings").
@@ -138,8 +138,8 @@ func (c *trafficRoutings) Update(ctx context.Context, trafficRouting *v1alpha1.R
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *trafficRoutings) UpdateStatus(ctx context.Context, trafficRouting *v1alpha1.RolloutTrafficRouting, opts v1.UpdateOptions) (result *v1alpha1.RolloutTrafficRouting, err error) {
-	result = &v1alpha1.RolloutTrafficRouting{}
+func (c *trafficRoutings) UpdateStatus(ctx context.Context, trafficRouting *v1alpha1.TrafficRouting, opts v1.UpdateOptions) (result *v1alpha1.TrafficRouting, err error) {
+	result = &v1alpha1.TrafficRouting{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("trafficroutings").
@@ -180,8 +180,8 @@ func (c *trafficRoutings) DeleteCollection(ctx context.Context, opts v1.DeleteOp
 }
 
 // Patch applies the patch and returns the patched trafficRouting.
-func (c *trafficRoutings) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.RolloutTrafficRouting, err error) {
-	result = &v1alpha1.RolloutTrafficRouting{}
+func (c *trafficRoutings) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.TrafficRouting, err error) {
+	result = &v1alpha1.TrafficRouting{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("trafficroutings").
